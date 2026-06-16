@@ -1,10 +1,9 @@
 // src/components/Navbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Navbar({ usuario, setUsuario }) {
+export default function Navbar({ usuario, setUsuario, cantidadCarrito, verCarrito }) {
   const navigate = useNavigate();
 
-  // Función para cerrar sesión
   const handleLogout = () => {
     setUsuario(null);
     navigate('/');
@@ -13,43 +12,33 @@ export default function Navbar({ usuario, setUsuario }) {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        {/* Logo */}
         <Link to="/" className="nav-logo ultra-holo" style={{ textDecoration: 'none' }}>
           VINLUME
         </Link>
         
         <ul className="nav-links">
-          {/* Enlaces de la Landing Page original */}
-          <li><Link to="/">Inicio</Link></li>
+          {/* Solución al enlace de Inicio: ahora fuerza la navegación al id="inicio" */}
+          <li><a href="/#inicio">Inicio</a></li>
           <li><a href="/#proceso">Cómo Funciona</a></li>
           <li><a href="/#tecnologia">Tecnología NFC</a></li>
           <li><a href="/#catalogo">Catálogo</a></li>
           <li><a href="/#faq">FAQ</a></li>
           
-          {/* Nuevo Botón de Carrito de Compras */}
+          {/* Botón de Carrito Dinámico */}
           <li>
             <button 
               className="btn" 
               style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 15px' }}
-              onClick={() => alert("Carrito de compras en construcción 🛒")}
+              onClick={verCarrito}
             >
-              🛒 <span className="cart-count">0</span>
+              🛒 <span className="cart-count">{cantidadCarrito}</span>
             </button>
           </li>
 
-          {/* Opciones de Usuario / Autenticación */}
           {usuario ? (
             <>
-              <li>
-                <button className="outline-btn" style={{ cursor: 'default' }}>
-                  Hola, {usuario.nombre}
-                </button>
-              </li>
-              <li>
-                <button onClick={handleLogout} className="outline-btn btn-peligro">
-                  Salir
-                </button>
-              </li>
+              <li><button className="outline-btn" style={{ cursor: 'default' }}>Hola, {usuario.nombre}</button></li>
+              <li><button onClick={handleLogout} className="outline-btn btn-peligro">Salir</button></li>
             </>
           ) : (
             <li>
