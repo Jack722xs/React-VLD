@@ -1,4 +1,3 @@
-// src/pages/Auth.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { iniciarSesion, registrarUsuario, validarCorreo } from '../utils/auth';

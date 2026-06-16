@@ -1,7 +1,6 @@
-// src/components/Navbar.jsx
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Navbar({ usuario, setUsuario, cantidadCarrito, verCarrito }) {
+export default function Navbar({ usuario, setUsuario, totalItems }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -17,22 +16,18 @@ export default function Navbar({ usuario, setUsuario, cantidadCarrito, verCarrit
         </Link>
         
         <ul className="nav-links">
-          {/* Solución al enlace de Inicio: ahora fuerza la navegación al id="inicio" */}
           <li><a href="/#inicio">Inicio</a></li>
           <li><a href="/#proceso">Cómo Funciona</a></li>
           <li><a href="/#tecnologia">Tecnología NFC</a></li>
           <li><a href="/#catalogo">Catálogo</a></li>
           <li><a href="/#faq">FAQ</a></li>
           
-          {/* Botón de Carrito Dinámico */}
+          {/* Botón vista del Carrito */}
+
           <li>
-            <button 
-              className="btn" 
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 15px' }}
-              onClick={verCarrito}
-            >
-              🛒 <span className="cart-count">{cantidadCarrito}</span>
-            </button>
+            <Link to="/carrito" className="btn" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 15px', textDecoration: 'none' }}>
+              🛒 <span className="cart-count">{totalItems}</span>
+            </Link>
           </li>
 
           {usuario ? (
