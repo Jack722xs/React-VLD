@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { iniciarSesion, registrarUsuario, validarCorreo } from '../utils/auth';
+import { iniciarSesion, registrarUsuario } from '../utils/api';
 import '../styles/login.css';
 
 export default function Auth({ setUsuario }) {
@@ -20,9 +20,9 @@ export default function Auth({ setUsuario }) {
     setTimeout(() => setFeedback({ visible: false, texto: '', tipo: '' }), 4000);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const res = iniciarSesion(logCorreo, logPass);
+    const res = await iniciarSesion(logCorreo, logPass);
     if (res.exito) {
       setUsuario(res.usuario);
       mostrarFeedback("¡Acceso concedido!", 'exito');
@@ -32,7 +32,7 @@ export default function Auth({ setUsuario }) {
     }
   };
 
-  const handleRegistro = (e) => {
+  const handleRegistro = async (e) => {
     e.preventDefault();
 
     if (!validarCorreo(regCorreo)) {
@@ -40,7 +40,7 @@ export default function Auth({ setUsuario }) {
       return;
     }
 
-    const res = registrarUsuario(regNombre, regCorreo, regPass);
+    const res = await registrarUsuario(regNombre, regCorreo, regPass);
     mostrarFeedback(res.mensaje, res.exito ? 'exito' : 'error');
     if (res.exito) {
       setRegNombre('');

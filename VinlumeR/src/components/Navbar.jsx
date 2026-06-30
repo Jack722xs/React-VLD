@@ -32,6 +32,13 @@ export default function Navbar({ usuario, setUsuario, totalItems }) {
 
           {usuario ? (
             <>
+              {usuario.rol === 'admin' && (
+                <li>
+                  <Link to="/admin" className="outline-btn" style={{ borderColor: '#00d4ff', color: '#00d4ff', textDecoration: 'none' }}>
+                    Panel Admin
+                  </Link>
+                </li>
+              )}
               <li><button className="outline-btn" style={{ cursor: 'default' }}>Hola, {usuario.nombre}</button></li>
               <li><button onClick={handleLogout} className="outline-btn btn-peligro">Salir</button></li>
             </>
